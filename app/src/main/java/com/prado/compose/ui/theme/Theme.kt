@@ -1,70 +1,118 @@
 package com.prado.compose.ui.theme
 
-import android.app.Activity
-import android.os.Build
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.primarySurface
+
+
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalView
-import androidx.core.view.WindowCompat
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
-
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
-)
 
 @Composable
-fun ComposeTheme(
+fun ComposeArsenalTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+    val extendedColors = if (darkTheme) darkExtendedColors else lightExtendedColors
+
+    CompositionLocalProvider(LocalExtendedColors provides extendedColors) {
+        MaterialTheme(
+            colors = if (darkTheme) darkMaterialColors else lightMaterialColors,
+            typography = AppDefaultTypography,
+            content = content
+        )
+
+
+    }
+}
+
+object ComposeArsenalTheme {
+    val typographyCustom: AppCustomTypography
+        @Composable
+        get() = AppCustomTypography
+
+    val colorsCustom: ExtendedColors
+        @Composable
+        get() = LocalExtendedColors.current
+}
+
+//// PREVIEWS PARA VISUALIZAR MELHOR AS CORES
+//
+@Preview
+@Composable
+fun LightColorsPreview() {
+    ComposeArsenalTheme(darkTheme = false) {
+        ColorList()
+    }
+}
+@Preview
+@Composable
+fun DarkColorsPreview(){
+    ComposeArsenalTheme(darkTheme = true) {
+        ColorList()
+    }
+}
+
+@Composable
+fun ColorList() {
+    Column(
+        modifier = Modifier
+            .verticalScroll(state = rememberScrollState())
+            .fillMaxHeight()
+    ) {
+        mapOf(
+            "primary" to MaterialTheme.colors.primary,
+            "primaryVariant" to MaterialTheme.colors.primaryVariant,
+            "primarySurface" to MaterialTheme.colors.primarySurface,
+            "onPrimary" to MaterialTheme.colors.onPrimary,
+
+            "secondary" to MaterialTheme.colors.secondary,
+            "onSecondary" to MaterialTheme.colors.onSecondary,
+            "secondaryVariant" to MaterialTheme.colors.secondaryVariant,
+
+            "surface" to MaterialTheme.colors.surface,
+            "onSurface" to MaterialTheme.colors.onSurface,
+
+            "error" to MaterialTheme.colors.error,
+            "background" to MaterialTheme.colors.background,
+            "onBackground" to MaterialTheme.colors.onBackground,
+
+            // custom extented colors
+            "customSnowWhite" to ComposeArsenalTheme.colorsCustom.snowWhite,
+            "customDeepOcean" to ComposeArsenalTheme.colorsCustom.deepOcean,
+            "customSkyBlue" to ComposeArsenalTheme.colorsCustom.skyBlue,
+            "customNightBlue" to ComposeArsenalTheme.colorsCustom.nightBlue,
+            "customDialogBackground" to ComposeArsenalTheme.colorsCustom.dialogBackground,
+        ).forEach { (text, color) ->
+            Row {
+                Text(
+                    text = text,
+                    color = ComposeArsenalTheme.colorsCustom.snowWhite,
+                    modifier = Modifier
+                        .weight(1f)
+                )
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(32.dp)
+                        .background(color)
+                )
+
+            }
         }
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
     }
-    val view = LocalView.current
-    if (!view.isInEditMode) {
-        SideEffect {
-            val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
-        }
-    }
-
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
 }
