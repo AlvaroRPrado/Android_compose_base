@@ -20,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
-
 @Composable
 fun ComposeArsenalTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -31,7 +30,7 @@ fun ComposeArsenalTheme(
     CompositionLocalProvider(LocalExtendedColors provides extendedColors) {
         MaterialTheme(
             colors = if (darkTheme) darkMaterialColors else lightMaterialColors,
-            typography = AppDefaultTypography,
+            //typography = AppDefaultTypography,
             content = content
         )
 
@@ -50,6 +49,7 @@ object ComposeArsenalTheme {
 }
 
 //// PREVIEWS PARA VISUALIZAR MELHOR AS CORES
+/*
 //
 @Preview
 @Composable
@@ -64,6 +64,7 @@ fun DarkColorsPreview(){
     ComposeArsenalTheme(darkTheme = true) {
         ColorList()
     }
+
 }
 
 @Composable
@@ -116,3 +117,4 @@ fun ColorList() {
 
     }
 }
+*/

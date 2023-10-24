@@ -1,5 +1,6 @@
 package com.prado.compose.ui.theme
 
+
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
@@ -9,6 +10,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 //set of material  typography styles to start with
+/*
 
 val AppDefaultTypography = Typography(
     body1 = TextStyle(
@@ -50,3 +52,4 @@ object AppCustomTypography {
 val TextStyle.bold: TextStyle
     @Composable
     get() = AppCustomTypography.body1.copy(fontWeight = FontWeight.Bold)
+*/

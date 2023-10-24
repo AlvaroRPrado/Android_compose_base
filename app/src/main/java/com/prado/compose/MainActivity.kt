@@ -3,7 +3,6 @@ package com.prado.compose
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.service.autofill.OnClickAction
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,7 +16,7 @@ import androidx.compose.material.FabPosition
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material3.*
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.rememberDrawerState
 import androidx.compose.material.rememberScaffoldState
@@ -38,7 +37,10 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(
                     scaffoldState = scaffoldState,
-                    topBar = { TopAppBar(title ={ Text(text = "Home")})},
+                    topBar = {
+                        TopAppBar(
+                            title ={ Text(text = "Home")})},
+
                     floatingActionButtonPosition = FabPosition.End,
                     floatingActionButton = { FloatingActionButton(onClick = {}) {
                       Text(text = "+")

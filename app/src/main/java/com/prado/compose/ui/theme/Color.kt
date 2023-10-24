@@ -10,7 +10,6 @@ import androidx.compose.ui.res.colorResource
 import com.prado.compose.R
 
 //day colors - cores para usar durante o dia
-
 val  lightMaterialColors: Colors
     @Composable
     get() = Colors(
@@ -59,11 +58,11 @@ val darkMaterialColors: Colors
 
     )
 //
-///**
+//*
 // * Base class to extend the material color theme with auxiliary colors that goes
 // * beyond the default theme acc. to accomplish your company's corporate identity design
-// */
-
+//
+/*
 @Immutable
 data class ExtendedColors(
     val snowWhite: Color,
@@ -105,3 +104,4 @@ val darkExtendedColors: ExtendedColors
         nightBlue = colorResource(id = R.color.black_plain),
         dialogBackground = colorResource(id = R.color.black_inverted_mode)
     )
+*/
