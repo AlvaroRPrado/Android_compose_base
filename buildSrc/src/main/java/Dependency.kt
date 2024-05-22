@@ -2,7 +2,7 @@ class Dependency {
 
     /** PLAYSTORE VERSIONS */
     object Playstore {
-        const val applicationId = "br.com.progdeelite.compose" // can't change once defined
+        const val applicationId = "com.prado.compose" // não pode ser alterado depois de definido
         const val minSdk = 23
         const val targetSdk = 31
         const val versionCode = 1       // must be increased by every playstore upload

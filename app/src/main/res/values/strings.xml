@@ -18,4 +18,6 @@
     <string name="register_id">Número de registro</string>
     <string name="activated">Ativado em:</string>
     <string name="last_login">Último acesso:</string>
+
+
 </resources>
